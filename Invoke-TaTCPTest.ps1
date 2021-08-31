@@ -46,6 +46,7 @@ function Write-Log {
 }
 
 
+# Using .NET objects to avoid dependencies on powershell (i.e can execute on Windows 2008)
 
 function Invoke-W2k8CompatibleTests {
     param (
