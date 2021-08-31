@@ -3,7 +3,8 @@ param (
     [Parameter(Mandatory = $true)]
     $InputFile,
     [Parameter(Mandatory = $false)]
-    [switch]$showFailuresOnly = $false
+    [switch]$showFailuresOnly = $false,
+    [switch]$diagnose = $false    
 )
 
 
@@ -67,11 +68,19 @@ function Invoke-W2k8CompatibleTests {
                         if (( ([int]$port) -lt 1025) -and (([int]$port) -gt 0 )) {
                             $timestamp = Get-Date
                             $result = New-Object System.Net.Sockets.TcpClient($ip, $port)
+
                             if (!$showFailuresOnly) {
                                 $output = "Success: RESPONSE from destination $($ip) ($($target.remotednscanonicalnames)) on TCP port $port used by $($target.processname), $($target.groupname), usage: $($target.count_), was allowed on-prem from $($target.computer)"
                                 Write-Log -Message $output
                             }
                         }
+
+                        if ($diagnose) {
+                            Write-Log "Diagnose initiated"
+                            Test-NetConnection -ComputerName $ip -DiagnoseRouting
+                        }
+
+
                     }
                     catch {
                         $output = "BLOCKED or NO response from destination $($ip) ($($dnsresults.hostname)) ($($target.remotednscanonicalnames)) on TCP port $port used by $($target.processname), $($target.groupname), $($target.count_) tcp connections was seen on-prem from $($target.computer)"
@@ -81,7 +90,6 @@ function Invoke-W2k8CompatibleTests {
             }
         }
     }
-
 }
 
 
