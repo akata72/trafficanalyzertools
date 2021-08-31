@@ -1,0 +1,26 @@
+[
+  {
+    "Computer": "test123.lx.arf01.net",
+    "DestinationPort": "8101",
+    "SourceIp": "194.248.4.99",
+    "DestinationIp": "EXTRANET",
+    "ProcessName": "SFCFeed",
+    "count_": "66476",
+    "DestinationGroupName": "EXTRANET",
+    "DestinationPortList": ["8101", "22"],
+    "RemoteIpList": ["194.248.4.110"],
+    "GroupName": "EXTRANET"
+  },
+  {
+    "Computer": "googletest",
+    "DestinationPort": "80",
+    "SourceIp": "194.248.4.99",
+    "DestinationIp": "EXTRANET",
+    "ProcessName": "msedge",
+    "count_": "66476",
+    "DestinationGroupName": "Internet",
+    "DestinationPortList": ["80", "443"],
+    "RemoteIpList": ["8.8.8.8"],
+    "GroupName": "EXTRANET"
+  }
+]
